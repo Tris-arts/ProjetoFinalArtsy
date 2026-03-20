@@ -11,11 +11,11 @@ import javax.swing.JOptionPane;
 
 public class Conexao {
 
-    private static final String url = "jdbc:mysql://localhost:3306/artsy";
-    //private static final String url = "jdbc:mysql://localhost:3307/artsy";
+    private static final String url = "jdbc:mysql://localhost:3307/artsy"; //3306
+    
     private static final String user = "root";
-    //private static final String senha = "";
-    private static final String senha = "Eva172024";
+    
+    private static final String senha = ""; //"Eva172024
 
 
     public static Connection conectar(){

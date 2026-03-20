@@ -11,7 +11,7 @@ import model.UsuarioBean;
 import model.UsuarioDAO;
 
 public class Cadastro extends javax.swing.JFrame {
-
+    UsuarioDAO dao = new UsuarioDAO();
     /**
      * Creates new form Cadastro
      */
@@ -191,7 +191,8 @@ public class Cadastro extends javax.swing.JFrame {
         if ((nomefield.getText().isEmpty()) || (userfield.getText().isEmpty()) || (senhafield.getText().isEmpty()) ) {
         JOptionPane.showMessageDialog(null, "Preencha todos os campos necessários!");
         }else {
-        UsuarioDAO dao = new UsuarioDAO();
+        
+        
         dao.cadastro(usuarios);     
         JOptionPane.showMessageDialog(null, "Usuário: " + userfield.getText() +" efetuou login com sucesso!");
             
