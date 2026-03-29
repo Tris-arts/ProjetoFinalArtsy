@@ -19,12 +19,13 @@ public class UsuarioDAO {
             PreparedStatement stmt = null;
            
             stmt = conn.prepareStatement(
-                    "INSERT INTO usuarios (nome, usuario, senha, admin) VALUES (?, ?, ?, ?)"
+                    "INSERT INTO usuarios (nome, usuario, email, senha, admin) VALUES (?, ?, ?, ?, ?)"
             );
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getUsuario());
-            stmt.setString(3, usuario.getSenha());
-            stmt.setBoolean(4, false);
+            stmt.setString(3, usuario.getEmail());
+            stmt.setString(4, usuario.getSenha());
+            stmt.setBoolean(5, false);
             stmt.executeUpdate();
             
         }catch(SQLException e){
@@ -53,6 +54,7 @@ public class UsuarioDAO {
             user.setId(rs.getInt("id"));
             user.setNome(rs.getString("nome"));
             user.setUsuario(rs.getString("usuario"));
+            user.setEmail(rs.getString("email"));
             user.setSenha(rs.getString("senha"));
             user.setAdmin(rs.getBoolean("admin"));
         }
