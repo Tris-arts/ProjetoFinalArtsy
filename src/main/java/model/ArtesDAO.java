@@ -18,36 +18,42 @@ import model.ArtesBean;
  */
 public class ArtesDAO {
 
-    //private int idobras;
+    private int idobras;
     
-      public void inserir(ArtesBean obras){
+    public void inserir(ArtesBean obras){
         try {
             Connection conn = Conexao.conectar();
             PreparedStatement stmt = null;
            
             stmt = conn.prepareStatement(
-                    "INSERT INTO obras (idusuario, artista, titulo, vendedor, descricao, estoque, preco) VALUES (?,?,?,?,?,?)"
+                    "INSERT INTO obras ( idusuario, artista, titulo, vendedor, descricao, preco) VALUES (?,?,?,?,?,?)"
             );
-            
-           
-            stmt.setInt(2, obras.getIdusuario());
+            //idobras, idusuario, 
+            //stmt.setInt(1, obras.getIdobra());
+            stmt.setInt(2, obras.getIdUsuario());
             stmt.setString(3, obras.getArtista());
             stmt.setString(4, obras.getTitulo());
             stmt.setString(5, obras.getVendedor());
             stmt.setString(6, obras.getDescricao());
             stmt.setDouble(7, obras.getPreco());
             
+            
+             
+            
             stmt.executeUpdate();
             
+            
+            
+        stmt.close();
+        conn.close();
         }catch(SQLException e){
             e.printStackTrace();
-        }
-        
-        
-        
+    }
+       
+       
         }
       
-        public void atualizar(ArtesBean obras){
+    public void atualizar(ArtesBean obras){
         try {
             Connection conn = Conexao.conectar();
             PreparedStatement stmt = null;
@@ -56,7 +62,7 @@ public class ArtesDAO {
                     "UPDATE obras SET idusuario = ?, artista = ?, titulo = ?, vendedor = ?, descricao = ?, preco = ? WHERE idobras = ?"
             );
             
-            stmt.setInt(1,obras.getIdusuario());
+            stmt.setInt(1, obras.getIdUsuario());
             stmt.setString(2, obras.getArtista());
             stmt.setString(3, obras.getTitulo());
             stmt.setString(4, obras.getVendedor());
@@ -67,64 +73,103 @@ public class ArtesDAO {
             stmt.setInt(7, obras.getIdobra());
             stmt.executeUpdate();
             
+           
+        stmt.close();
+        conn.close();
         }catch(SQLException e){
             e.printStackTrace();
         }
         
-        }
+    }
 
-    public void excluir(ArtesBean obras){
+    public void excluir(int id){
         try {
             Connection conn = Conexao.conectar();
             PreparedStatement stmt = null;
            
-            stmt = conn.prepareStatement(
-                    "DELETE FROM obras WHERE idobras = ?"
-            );
+            stmt = conn.prepareStatement("DELETE FROM obras WHERE idobras = ?");
             
-            stmt.setInt(1, obras.getIdobra());
-            stmt.executeUpdate();
+            stmt.setInt(1, id);
             
+            
+        stmt.executeUpdate();    
+        stmt.close();
+        conn.close();
         }catch(SQLException e){
             e.printStackTrace();
         }
         
-        }
+    }
     
-    public List<ArtesBean> listar() {//listar obras 
+    public List<ArtesBean> listarPorUsuario(int idLogado) {//listar obras pelo idlogado
+        List<ArtesBean> listar = new ArrayList<>();
+      
+        try {
+            Connection conn = Conexao.conectar();
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM obras WHERE idusuario = ?");
         
-        List<ArtesBean> lista = new ArrayList<>();
-
-        try (Connection conn = Conexao.conectar();
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM obras");
-                 
-                ResultSet rs = stmt.executeQuery()) {
+            stmt.setInt(1, idLogado);
+        
+        
+            ResultSet rs = stmt.executeQuery(); 
 
             while (rs.next()) {
-                
                 ArtesBean obras = new ArtesBean();
                 obras.setIdobra(rs.getInt("idobras"));
-                obras.setIdusuario(rs.getInt("idusuario"));
+                obras.setIdUsuario(rs.getInt("idusuario"));
                 obras.setArtista(rs.getString("artista"));
                 obras.setTitulo(rs.getString("titulo"));
                 obras.setVendedor(rs.getString("vendedor"));
                 obras.setDescricao(rs.getString("descricao"));
                 obras.setPreco(rs.getDouble("preco"));
-                
-                lista.add(obras);
+            
+                    listar.add(obras);
+            
             }
-
+        
+        
+        rs.close();
+        stmt.close();
+        conn.close();
+           
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return lista;
+        return listar;
+              
     }
     
-        //public void setIdArte(int idobras) {
-        //this.idobras = idobras;
-    //}
-        
+    
+    public ArtesBean buscarPorId(int idObra) {
+    ArtesBean obra = null;
+    try {
+        Connection conn = Conexao.conectar();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM obras WHERE idobras = ?");
+        stmt.setInt(1, idObra);
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            obra = new ArtesBean();
+            obra.setIdobra(rs.getInt("idobras"));
+            obra.setIdUsuario(rs.getInt("idusuario"));
+            obra.setArtista(rs.getString("artista"));
+            obra.setTitulo(rs.getString("titulo"));
+            obra.setVendedor(rs.getString("vendedor"));
+            obra.setDescricao(rs.getString("descricao"));
+            obra.setPreco(rs.getDouble("preco"));
+        }
+        rs.close();
+        stmt.close();
+        conn.close();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return obra; 
+}
+    
+    
+    
 }
 
 

@@ -3,6 +3,8 @@ package telas;
 
 import conexao.Conexao;
 import javax.swing.JOptionPane;
+import model.ArtesDAO;
+import model.Sessao;
 import model.UsuarioBean;
 import model.UsuarioDAO;
 
@@ -19,6 +21,8 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         //conn.testarConexao();
         
+//listarObrasNaTabela();
+        this.getRootPane().setDefaultButton(EntrarButton);
     }
 
     /**
@@ -68,6 +72,7 @@ public class Login extends javax.swing.JFrame {
         jPanel7.setLayout(new java.awt.GridBagLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 227, 174));
+        jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(10, 10, 10, 10, new java.awt.Color(153, 51, 0)));
 
         FotoLogin2.setBackground(new java.awt.Color(249, 240, 216));
 
@@ -83,11 +88,12 @@ public class Login extends javax.swing.JFrame {
         );
 
         jPanel5.setBackground(new java.awt.Color(218, 146, 66));
+        jPanel5.setBorder(javax.swing.BorderFactory.createMatteBorder(10, 10, 10, 10, new java.awt.Color(153, 51, 0)));
 
         FotoDefaultUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         FotoDefaultUser.setText("Logomarca");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("SimSun-ExtG", 3, 24)); // NOI18N
         jLabel3.setText("Login");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -95,28 +101,25 @@ public class Login extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(158, 158, 158)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(160, 160, 160))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addComponent(FotoDefaultUser)
-                        .addGap(169, 169, 169))))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FotoDefaultUser))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(41, Short.MAX_VALUE)
+                .addGap(30, 30, 30)
                 .addComponent(FotoDefaultUser)
-                .addGap(47, 47, 47)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                .addGap(40, 40, 40))
         );
 
         jPanel6.setBackground(new java.awt.Color(252, 247, 221));
 
-        UserLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        UserLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         UserLabel.setText("Usuário:");
         UserLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -124,10 +127,10 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Senha:");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 0, 51));
         jLabel1.setText("Não tem conta? Cadastrar abaixo:");
 
@@ -136,6 +139,8 @@ public class Login extends javax.swing.JFrame {
         jLabel6.setText("Declaração de Privacidade");
 
         EntrarButton.setBackground(new java.awt.Color(243, 159, 66));
+        EntrarButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        EntrarButton.setForeground(new java.awt.Color(83, 31, 9));
         EntrarButton.setText("Entrar");
         EntrarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,6 +149,8 @@ public class Login extends javax.swing.JFrame {
         });
 
         CadastrarButton.setBackground(new java.awt.Color(252, 220, 103));
+        CadastrarButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        CadastrarButton.setForeground(new java.awt.Color(83, 31, 9));
         CadastrarButton.setText("Cadastrar");
         CadastrarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,6 +158,9 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        usuariofield.setBackground(new java.awt.Color(246, 249, 248));
+
+        senhafield.setBackground(new java.awt.Color(246, 249, 248));
         senhafield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 senhafieldActionPerformed(evt);
@@ -162,68 +172,57 @@ public class Login extends javax.swing.JFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
+                            .addGap(65, 65, 65)
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addComponent(senhafield, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGap(161, 161, 161)
-                                .addComponent(UserLabel))
+                                .addGap(23, 23, 23)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(UserLabel)
+                                    .addComponent(usuariofield, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5)))
                             .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGap(281, 281, 281)
-                                .addComponent(jLabel4)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(93, 93, 93)
+                                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(EntrarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(CadastrarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
-                                    .addGap(63, 63, 63)
-                                    .addComponent(jLabel2)
-                                    .addGap(110, 110, 110)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18))
-                                .addGroup(jPanel6Layout.createSequentialGroup()
-                                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel1)
-                                        .addComponent(EntrarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(75, 75, 75)))
-                            .addComponent(usuariofield, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(senhafield, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(0, 29, Short.MAX_VALUE))))
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(188, 188, 188)
-                        .addComponent(jLabel5))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(119, 119, 119)
-                        .addComponent(CadastrarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(80, 80, 80)
+                        .addComponent(jLabel1)))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(UserLabel)
-                .addGap(26, 26, 26)
-                .addComponent(usuariofield, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addGap(11, 11, 11)
-                .addComponent(senhafield)
-                .addGap(18, 18, 18)
                 .addComponent(jLabel4)
-                .addGap(34, 34, 34)
-                .addComponent(EntrarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
-                .addComponent(jLabel1)
-                .addGap(20, 20, 20)
-                .addComponent(CadastrarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(UserLabel)
+                .addGap(18, 18, 18)
+                .addComponent(usuariofield, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5)
+                .addGap(12, 12, 12)
+                .addComponent(senhafield, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
+                .addComponent(EntrarButton, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(CadastrarButton, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35))
+                .addGap(14, 14, 14))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -247,9 +246,9 @@ public class Login extends javax.swing.JFrame {
                         .addGap(82, 82, 82)
                         .addComponent(FotoLogin2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
+                        .addGap(28, 28, 28)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
+                        .addGap(29, 29, 29)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
@@ -269,14 +268,14 @@ public class Login extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 1596, Short.MAX_VALUE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 1616, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 1047, Short.MAX_VALUE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 1087, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -294,27 +293,37 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_CadastrarButtonActionPerformed
 
     private void EntrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntrarButtonActionPerformed
-
+        
+        
         String usuario = usuariofield.getText().trim();
         String senha = senhafield.getText().trim();
+    
 
+        //validaçoes
         if(usuario.equals("")) {
             JOptionPane.showMessageDialog(null, "O campo Usuário está vazio!", "ERRO!", JOptionPane.WARNING_MESSAGE);
         } else if (senha.equals("")) {
             JOptionPane.showMessageDialog(null, "O campo Senha está vazio!", "ERRO!", JOptionPane.WARNING_MESSAGE);
         } else {
-
+ 
+        try {
             UsuarioDAO dao = new UsuarioDAO();
             UsuarioBean usuarioLogado = dao.logar(usuario, senha);
 
-            if(usuarioLogado.getId() > 0) {
+        if (usuarioLogado != null && usuarioLogado.getId() > 0) {
+            Sessao.setUsuario(usuarioLogado);
+            new Inicio().setVisible(true);
+            this.dispose();
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro técnico ao conectar: " + e.getMessage());
+        }
 
-                new Inicio().setVisible(true);
-                this.dispose();
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Campos (usuário e/ou senha) estão incorretos!", "ERRO!", JOptionPane.ERROR_MESSAGE);
-            }
+            
         }
     }//GEN-LAST:event_EntrarButtonActionPerformed
 

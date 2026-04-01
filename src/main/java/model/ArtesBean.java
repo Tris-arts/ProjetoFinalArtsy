@@ -16,7 +16,8 @@ public class ArtesBean {
     public ArtesBean() {
     }
 
-    public ArtesBean(int idobra, int idusuario, String artista, String vendedor, String titulo, String descricao, double preco) {
+    public ArtesBean(int idusuario, int idobra, String artista, String vendedor, String titulo, String descricao, double preco) {
+        
         this.idobra = idobra;
         this.idusuario = idusuario;
         this.artista = artista;
@@ -26,20 +27,20 @@ public class ArtesBean {
         this.preco = preco;
     }
 
+    public int getIdUsuario() {
+        return idusuario;
+    }
+
+    public void setIdUsuario(int idusuario) {
+        this.idusuario = idusuario;
+    }
+
     public int getIdobra() {
         return idobra;
     }
 
     public void setIdobra(int idobra) {
         this.idobra = idobra;
-    }
-
-    public int getIdusuario() {
-        return idusuario;
-    }
-
-    public void setIdusuario(int idusuario) {
-        this.idusuario = idusuario;
     }
 
     public String getArtista() {
@@ -82,8 +83,6 @@ public class ArtesBean {
         this.preco = preco;
     }
 
-    
-    
 
 }
 

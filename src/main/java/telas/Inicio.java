@@ -4,8 +4,10 @@ package telas;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.UsuarioBean;
 import model.ArtesBean;
 import model.ArtesDAO;
+import model.Sessao;
 
 /**
  *
@@ -13,38 +15,51 @@ import model.ArtesDAO;
  */
 
 public class Inicio extends javax.swing.JFrame {
-    
-    /**
-     * Creates new form Inicio
-     */
+        DefaultTableModel model;
+        ArtesDAO dao = new ArtesDAO();
+        private ArtesBean usuarioLogado;
+         
+  
     public Inicio() {
+
         initComponents();
+
+    }
+    
+    public Inicio(UsuarioBean idusuario){
+        initComponents();
+        ArtesBean usuario = null;
         
+        this.usuarioLogado = usuario;
+        setTitle("Gerenciador de Obras - Bem vindo");
         preencherTabela();
+        
     }
     
-public void preencherTabela(){
-    DefaultTableModel model = (DefaultTableModel)
+    public void preencherTabela(){
+        DefaultTableModel model = (DefaultTableModel)
     
-    tabelaObras.getModel();
-    model.setRowCount(0);
+        tabelaObras.getModel();
+        model.setRowCount(0);
     
-    ArtesDAO dao = new ArtesDAO();
-    List<ArtesBean> dados = dao.listar();
+        ArtesDAO dao = new ArtesDAO();
     
     
-    for(ArtesBean d : dados){
-       Object[] linha = { 
-        d.getIdobra(),
-        d.getIdusuario(),
-        d.getArtista(),
-        d.getTitulo(),
-        d.getVendedor(),
-        d.getDescricao(),
-        d.getPreco()
-       };
-       model.addRow(linha);
+    int idLogado = Sessao.getUsuario().getId();
+    
+    for (ArtesBean obra : dao.listarPorUsuario(idLogado)){
+        model.addRow(new Object[]{
+            
+        obra.getIdobra(),
+        obra.getIdUsuario(),
+        obra.getArtista(),
+        obra.getTitulo(),
+        obra.getVendedor(),
+        obra.getDescricao(),
+        obra.getPreco(),
+       });
     }
+
     
     }
 
@@ -64,8 +79,9 @@ public void preencherTabela(){
         tabelaObras = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         Sair = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        excluirPedido = new javax.swing.JButton();
+        editarPedido = new javax.swing.JButton();
+        criarPedido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,22 +92,26 @@ public void preencherTabela(){
         incio.setLayout(new java.awt.GridBagLayout());
 
         tabelaObras.setBackground(new java.awt.Color(246, 249, 248));
+        tabelaObras.setForeground(new java.awt.Color(64, 3, 3));
         tabelaObras.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "IdObra", "IdVendedor", "Artista", "Título", "Vendedor", "Descrição", "Preço"
+                "IdObra", "IdVendedor", "Artista", "Titulo", "Descrição", "Vendedor", "Preco"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, true, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tabelaObras.setGridColor(new java.awt.Color(255, 153, 51));
+        tabelaObras.setSelectionBackground(new java.awt.Color(248, 236, 184));
+        tabelaObras.setSelectionForeground(new java.awt.Color(136, 23, 23));
         tabelaObras.getTableHeader().setReorderingAllowed(false);
         tabelaObras.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -102,77 +122,103 @@ public void preencherTabela(){
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 933;
-        gridBagConstraints.ipady = 526;
+        gridBagConstraints.ipadx = 975;
+        gridBagConstraints.ipady = 622;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(58, 169, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(35, 169, 0, 0);
         incio.add(jScrollPane2, gridBagConstraints);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 3, 36)); // NOI18N
-        jLabel2.setText("Obras de arte:");
+        jLabel2.setForeground(new java.awt.Color(83, 31, 9));
+        jLabel2.setText("Pedido de obras:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 11;
+        gridBagConstraints.ipadx = 43;
         gridBagConstraints.ipady = -17;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(35, 43, 0, 0);
         incio.add(jLabel2, gridBagConstraints);
 
-        Sair.setText("Sair");
+        Sair.setBackground(new java.awt.Color(246, 249, 248));
+        Sair.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Sair.setForeground(new java.awt.Color(83, 31, 9));
+        Sair.setText("Deslogar");
         Sair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SairActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.ipadx = 69;
-        gridBagConstraints.ipady = 16;
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.ipadx = 76;
+        gridBagConstraints.ipady = 31;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(38, 43, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(31, 215, 0, 0);
         incio.add(Sair, gridBagConstraints);
 
-        jButton1.setBackground(new java.awt.Color(231, 190, 113));
-        jButton1.setText("Criar pedido");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        excluirPedido.setBackground(new java.awt.Color(231, 190, 113));
+        excluirPedido.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        excluirPedido.setForeground(new java.awt.Color(83, 31, 9));
+        excluirPedido.setText("Excluir Pedido");
+        excluirPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                excluirPedidoActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.ipadx = 54;
+        gridBagConstraints.ipady = 31;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(31, 319, 32, 0);
+        incio.add(excluirPedido, gridBagConstraints);
+
+        editarPedido.setBackground(new java.awt.Color(218, 146, 66));
+        editarPedido.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        editarPedido.setForeground(new java.awt.Color(83, 31, 9));
+        editarPedido.setText("Editar pedido");
+        editarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarPedidoActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.ipadx = 60;
+        gridBagConstraints.ipady = 31;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(31, 20, 32, 14);
+        incio.add(editarPedido, gridBagConstraints);
+
+        criarPedido.setBackground(new java.awt.Color(231, 190, 113));
+        criarPedido.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        criarPedido.setForeground(new java.awt.Color(83, 31, 9));
+        criarPedido.setText("Criar pedido");
+        criarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                criarPedidoActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.ipadx = 65;
         gridBagConstraints.ipady = 31;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(38, 611, 35, 0);
-        incio.add(jButton1, gridBagConstraints);
-
-        jButton2.setBackground(new java.awt.Color(218, 146, 66));
-        jButton2.setText("Atualizar pedido");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 44;
-        gridBagConstraints.ipady = 31;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(38, 20, 35, 29);
-        incio.add(jButton2, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(31, 44, 32, 0);
+        incio.add(criarPedido, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -187,13 +233,11 @@ public void preencherTabela(){
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1493, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 1662, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1027, Short.MAX_VALUE)
         );
 
         pack();
@@ -201,24 +245,62 @@ public void preencherTabela(){
     }// </editor-fold>//GEN-END:initComponents
 
     private void SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SairActionPerformed
-        new Login().setVisible(true);
-        this.setVisible (false);
+        int confirm = JOptionPane.showConfirmDialog(this, "Executar o logout da conta?", "Confirmar", JOptionPane.YES_NO_OPTION);
+        if (confirm == JOptionPane.YES_OPTION) {
+            Login login = new Login();
+            login.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_SairActionPerformed
 
     private void tabelaObrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaObrasMouseClicked
 
-    
     }//GEN-LAST:event_tabelaObrasMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       new Editar2().setVisible(true);
-        this.setVisible (false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void excluirPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirPedidoActionPerformed
+       
+        int selectedRow = tabelaObras.getSelectedRow(); 
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione uma obra para deletar", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+    
+        int obraId = (int) tabelaObras.getValueAt(selectedRow, 0);
+        int confirm = JOptionPane.showConfirmDialog(this, "Deseja realmente deletar esta obra?", "Confirmação", JOptionPane.YES_NO_OPTION);
+    
+        if (confirm == JOptionPane.YES_OPTION) {
+            ArtesDAO dao = new ArtesDAO(); 
+            dao.excluir(obraId);       
+            JOptionPane.showMessageDialog(this, "Obra deletada com sucesso!");
+            preencherTabela();              
+        }
+        
+    }//GEN-LAST:event_excluirPedidoActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new Editar2().setVisible(true);
+    private void editarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarPedidoActionPerformed
+        int selectedRow = tabelaObras.getSelectedRow();
+        if (selectedRow == -1){
+            JOptionPane.showMessageDialog(this," É preciso que uma obra esteja selecionada para a edição!");
+        }
+        
+        int obraId = (int) tabelaObras.getValueAt(selectedRow, 0);
+        
+        EditarObra editar = new EditarObra();
+        editar.setVisible(true);
         this.setVisible (false);
-    }//GEN-LAST:event_jButton2ActionPerformed
+        
+        
+        editar.mostrarObraEdicao(obraId);
+        
+    }//GEN-LAST:event_editarPedidoActionPerformed
+
+    private void criarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_criarPedidoActionPerformed
+        
+        EditarObra f = new EditarObra();
+        f.setVisible(true);
+       
+        
+    }//GEN-LAST:event_criarPedidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -257,14 +339,15 @@ public void preencherTabela(){
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Sair;
+    private javax.swing.JButton criarPedido;
+    private javax.swing.JButton editarPedido;
+    private javax.swing.JButton excluirPedido;
     private javax.swing.JPanel incio;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tabelaObras;
     // End of variables declaration//GEN-END:variables
-
-    
 }
+    
+

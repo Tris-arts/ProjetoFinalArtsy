@@ -12,11 +12,13 @@ import model.UsuarioDAO;
 
 public class Cadastro extends javax.swing.JFrame {
    
-    /**
+    /**   
      * Creates new form Cadastro
      */
     public Cadastro() {
         initComponents();
+        
+        this.getRootPane().setDefaultButton(EnviarCadastro);
     }
 
    
@@ -39,7 +41,6 @@ public class Cadastro extends javax.swing.JFrame {
         LoginTela = new javax.swing.JButton();
         EnviarCadastro = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,20 +48,13 @@ public class Cadastro extends javax.swing.JFrame {
         FundoGeral.setLayout(new java.awt.GridBagLayout());
 
         segfundo.setBackground(new java.awt.Color(252, 247, 221));
+        segfundo.setBorder(javax.swing.BorderFactory.createMatteBorder(10, 10, 10, 10, new java.awt.Color(153, 51, 0)));
         segfundo.setLayout(new java.awt.GridBagLayout());
 
         jPanel1.setBackground(new java.awt.Color(252, 247, 221));
-        jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setText("Nome:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(30, 113, 0, 0);
-        jPanel1.add(jLabel2, gridBagConstraints);
 
         nomefield.setBackground(new java.awt.Color(246, 249, 248));
         nomefield.addActionListener(new java.awt.event.ActionListener() {
@@ -68,26 +62,9 @@ public class Cadastro extends javax.swing.JFrame {
                 nomefieldActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.ipadx = 241;
-        gridBagConstraints.ipady = 25;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 113, 0, 93);
-        jPanel1.add(nomefield, gridBagConstraints);
 
-        Userlabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Userlabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Userlabel.setText("Usuário:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.ipady = -4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(26, 113, 0, 0);
-        jPanel1.add(Userlabel, gridBagConstraints);
 
         usuariofield.setBackground(new java.awt.Color(246, 249, 248));
         usuariofield.addActionListener(new java.awt.event.ActionListener() {
@@ -95,45 +72,14 @@ public class Cadastro extends javax.swing.JFrame {
                 usuariofieldActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.ipadx = 241;
-        gridBagConstraints.ipady = 27;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 113, 0, 93);
-        jPanel1.add(usuariofield, gridBagConstraints);
 
-        SenhaLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        SenhaLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         SenhaLabel1.setText("Email:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 113, 0, 0);
-        jPanel1.add(SenhaLabel1, gridBagConstraints);
 
         emailfield.setBackground(new java.awt.Color(246, 249, 248));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.ipadx = 241;
-        gridBagConstraints.ipady = 29;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 113, 0, 93);
-        jPanel1.add(emailfield, gridBagConstraints);
 
-        SenhaLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        SenhaLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         SenhaLabel.setText("Senha:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 113, 0, 0);
-        jPanel1.add(SenhaLabel, gridBagConstraints);
 
         senhafield.setBackground(new java.awt.Color(246, 249, 248));
         senhafield.addActionListener(new java.awt.event.ActionListener() {
@@ -141,65 +87,97 @@ public class Cadastro extends javax.swing.JFrame {
                 senhafieldActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.ipadx = 241;
-        gridBagConstraints.ipady = 14;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 113, 0, 93);
-        jPanel1.add(senhafield, gridBagConstraints);
 
         LoginTela.setBackground(new java.awt.Color(252, 220, 103));
+        LoginTela.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        LoginTela.setForeground(new java.awt.Color(83, 31, 9));
         LoginTela.setText("Login");
         LoginTela.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LoginTelaActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 11;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 79;
-        gridBagConstraints.ipady = 25;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 34, 6, 0);
-        jPanel1.add(LoginTela, gridBagConstraints);
 
         EnviarCadastro.setBackground(new java.awt.Color(218, 146, 66));
+        EnviarCadastro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        EnviarCadastro.setForeground(new java.awt.Color(83, 31, 9));
         EnviarCadastro.setText("Salvar Cadastro");
         EnviarCadastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EnviarCadastroActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.ipadx = 77;
-        gridBagConstraints.ipady = 34;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 19, 0, 0);
-        jPanel1.add(EnviarCadastro, gridBagConstraints);
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Cadastro pronto? Faça o login!");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(56, 56, 56)
+                .addComponent(EnviarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(nomefield, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Userlabel)
+                            .addComponent(usuariofield, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(SenhaLabel1)
+                            .addComponent(emailfield, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(SenhaLabel)
+                            .addComponent(senhafield, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel5))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(74, 74, 74)
+                                .addComponent(LoginTela, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(nomefield, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Userlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(usuariofield, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(SenhaLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(emailfield, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(SenhaLabel)
+                .addGap(18, 18, 18)
+                .addComponent(senhafield, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55)
+                .addComponent(EnviarCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addComponent(LoginTela, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
+
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 10;
-        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipady = 12;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(46, 19, 0, 0);
-        jPanel1.add(jLabel5, gridBagConstraints);
-
-        segfundo.add(jPanel1, new java.awt.GridBagConstraints());
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("Logo usuario");
-        segfundo.add(jLabel3, new java.awt.GridBagConstraints());
+        gridBagConstraints.insets = new java.awt.Insets(27, 436, 45, 474);
+        segfundo.add(jPanel1, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -216,11 +194,11 @@ public class Cadastro extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(FundoGeral, javax.swing.GroupLayout.DEFAULT_SIZE, 1588, Short.MAX_VALUE))
+                .addComponent(FundoGeral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(FundoGeral, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+            .addComponent(FundoGeral, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 873, Short.MAX_VALUE)
         );
 
         pack();
@@ -241,19 +219,24 @@ public class Cadastro extends javax.swing.JFrame {
 
     private void EnviarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnviarCadastroActionPerformed
     
+    UsuarioBean usuarios = new UsuarioBean();
+
+    
     String nome = nomefield.getText().trim();
     String usuario = usuariofield.getText().trim();
     String email = emailfield.getText().trim();
     String senha = senhafield.getText().trim();
 
-    //Mínimo 5 caracteres, se nome curto. então colocar sobrenome
+    
+    
+    //Mínimo 5 caracteres, se nome curto, então colocar sobrenome
     if (nome.length() < 5) {
         JOptionPane.showMessageDialog(null, "Por favor, adicione seu sobrenome: mínimo 5 letras.");
         return; 
     }
 
     //email validação 
-    if (!email.contains("@")|| email.startsWith("@") || email.endsWith("@") ){
+    if (!email.contains("@")|| email.startsWith("@") || email.endsWith("@") || !email.contains(".")){
         JOptionPane.showMessageDialog(null, "Campo contato(email) inválido! Certifique-se de usar '@' e um domínio (ex: .com ou .com.br).");
         return;
     }
@@ -276,25 +259,33 @@ public class Cadastro extends javax.swing.JFrame {
     boolean maiusculo = false; 
     boolean digito = false;
 
+    //vef geral
     for (int i = 0; i < senha.length(); i++) {
         char c = senha.charAt(i);
         if (Character.isDigit(c)) digito = true;
         else if (Character.isUpperCase(c)) maiusculo = true;
         else if (Character.isLowerCase(c)) minusculo = true;
     }
-
     if (!(minusculo && maiusculo && tamanho && digito)) {
         JOptionPane.showMessageDialog(null, "Senha fraca! Informe 8 caracteres, letras: maiúscula e  minúscula e números.");
         return;
     }
-
-    UsuarioBean usuarios = new UsuarioBean();
-    usuarios.setNome(nome);
-    usuarios.setUsuario(usuario);
-    usuarios.setSenha(senha);
- 
-    System.out.println("Cadastro salvo! Faça o login para acessar a sua conta.");
     
+    try{
+        usuarios.setNome(nome);
+        usuarios.setUsuario(usuario);
+        usuarios.setEmail(email);
+        usuarios.setSenha(senha);
+    
+        UsuarioDAO dao= new UsuarioDAO();
+        dao.cadastro(usuarios);
+        JOptionPane.showMessageDialog(null, "Cadastro salvo! Faça o login para acessar a sua conta.");
+        
+    } catch (Exception e){
+    JOptionPane.showMessageDialog(null, "Erro ao salvar cadastro: "+ e.getMessage());
+    }
+    
+   
     }//GEN-LAST:event_EnviarCadastroActionPerformed
 
     private void LoginTelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginTelaActionPerformed
@@ -346,7 +337,6 @@ public class Cadastro extends javax.swing.JFrame {
     private javax.swing.JLabel Userlabel;
     private javax.swing.JTextField emailfield;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nomefield;

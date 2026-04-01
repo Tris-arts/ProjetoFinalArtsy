@@ -10,12 +10,14 @@ public class UsuarioBean {
     private String usuario;
     private String email;
     private String senha;
-    private boolean admin;
+    private String admin;
+    
+    
 
     public UsuarioBean() {
     }
 
-    public UsuarioBean(int id, String nome, String usuario, String email, String senha, boolean admin) {
+    public UsuarioBean(int id, String nome, String usuario, String email, String senha, String admin) {
         this.id = id;
         this.nome = nome;
         this.usuario = usuario;
@@ -56,11 +58,11 @@ public class UsuarioBean {
         this.senha = senha;
     }
 
-    public boolean isAdmin() {
+    public String isAdmin() {
         return admin;
     }
 
-    public void setAdmin(boolean admin) {
+    public void setAdmin(String admin) {
         this.admin = admin;
     }
 

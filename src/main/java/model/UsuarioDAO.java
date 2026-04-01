@@ -19,13 +19,15 @@ public class UsuarioDAO {
             PreparedStatement stmt = null;
            
             stmt = conn.prepareStatement(
-                    "INSERT INTO usuarios (nome, usuario, email, senha, admin) VALUES (?, ?, ?, ?, ?)"
+                    "INSERT INTO usuarios (nome, usuario, email, senha, role) VALUES (?, ?, ?, ?, ?)"
             );
             stmt.setString(1, usuario.getNome());
             stmt.setString(2, usuario.getUsuario());
             stmt.setString(3, usuario.getEmail());
             stmt.setString(4, usuario.getSenha());
-            stmt.setBoolean(5, false);
+            
+            stmt.setString(5, "CLIENTE");
+            
             stmt.executeUpdate();
             
         }catch(SQLException e){
@@ -35,6 +37,21 @@ public class UsuarioDAO {
         
         
         }
+        
+        public void excluir(int id) {
+            String sql = "DELETE FROM usuarios WHERE idusuario = ?";
+    
+            try (Connection conn = Conexao.conectar();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+        
+                stmt.setInt(1, id); 
+                stmt.executeUpdate();
+        
+        } catch (SQLException e) {
+        throw new RuntimeException("Erro ao excluir usuário: " + e.getMessage());
+        }
+}
+    
     
     public UsuarioBean logar(String usuario, String senha) {
     UsuarioBean user = new UsuarioBean();
@@ -51,13 +68,18 @@ public class UsuarioDAO {
         rs = stmt.executeQuery();
         
         if(rs.next()){
-            user.setId(rs.getInt("id"));
+            user.setId(rs.getInt("idusuario"));
             user.setNome(rs.getString("nome"));
             user.setUsuario(rs.getString("usuario"));
             user.setEmail(rs.getString("email"));
             user.setSenha(rs.getString("senha"));
-            user.setAdmin(rs.getBoolean("admin"));
+            user.setAdmin(rs.getString("role"));
         }
+        
+        rs.close();
+        stmt.close();
+        conn.close();
+        
     }catch(SQLException e){
         e.printStackTrace();
     }
@@ -67,5 +89,6 @@ public class UsuarioDAO {
     
     }
 
+    
            
 }
