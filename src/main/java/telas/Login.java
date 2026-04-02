@@ -90,8 +90,8 @@ public class Login extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(218, 146, 66));
         jPanel5.setBorder(javax.swing.BorderFactory.createMatteBorder(10, 10, 10, 10, new java.awt.Color(153, 51, 0)));
 
-        FotoDefaultUser.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        FotoDefaultUser.setText("Logomarca");
+        FotoDefaultUser.setFont(new java.awt.Font("Yu Gothic Medium", 1, 24)); // NOI18N
+        FotoDefaultUser.setText("Artsy");
 
         jLabel3.setFont(new java.awt.Font("SimSun-ExtG", 3, 24)); // NOI18N
         jLabel3.setText("Login");
@@ -102,17 +102,17 @@ public class Login extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(158, 158, 158)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(FotoDefaultUser))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(167, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addContainerGap(42, Short.MAX_VALUE)
                 .addComponent(FotoDefaultUser)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
         );
@@ -312,7 +312,11 @@ public class Login extends javax.swing.JFrame {
 
         if (usuarioLogado != null && usuarioLogado.getId() > 0) {
             Sessao.setUsuario(usuarioLogado);
-            new Inicio().setVisible(true);
+            JOptionPane.showMessageDialog(this, 
+            "Bem-vindo(a)! " + usuarioLogado.getNome() + "!\nLogin realizado com sucesso.", 
+            "Acesso Autorizado!", 
+            JOptionPane.INFORMATION_MESSAGE);
+            new Inicio(usuarioLogado).setVisible(true);
             this.dispose();
             
         } else {

@@ -17,7 +17,8 @@ import model.Sessao;
 public class Inicio extends javax.swing.JFrame {
         DefaultTableModel model;
         ArtesDAO dao = new ArtesDAO();
-        private ArtesBean usuarioLogado;
+        
+        private UsuarioBean usuarioLogado;
          
   
     public Inicio() {
@@ -26,9 +27,9 @@ public class Inicio extends javax.swing.JFrame {
 
     }
     
-    public Inicio(UsuarioBean idusuario){
+    public Inicio(UsuarioBean usuario){
         initComponents();
-        ArtesBean usuario = null;
+      
         
         this.usuarioLogado = usuario;
         setTitle("Gerenciador de Obras - Bem vindo");
@@ -37,7 +38,7 @@ public class Inicio extends javax.swing.JFrame {
     }
     
     public void preencherTabela(){
-        DefaultTableModel model = (DefaultTableModel)
+        DefaultTableModel model = (DefaultTableModel) tabelaObras.getModel();
     
         tabelaObras.getModel();
         model.setRowCount(0);
@@ -79,7 +80,7 @@ public class Inicio extends javax.swing.JFrame {
         tabelaObras = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         Sair = new javax.swing.JButton();
-        excluirPedido = new javax.swing.JButton();
+        excluirObra = new javax.swing.JButton();
         editarPedido = new javax.swing.JButton();
         criarPedido = new javax.swing.JButton();
 
@@ -98,11 +99,11 @@ public class Inicio extends javax.swing.JFrame {
 
             },
             new String [] {
-                "IdObra", "IdVendedor", "Artista", "Titulo", "Descrição", "Vendedor", "Preco"
+                "idObra", "idUsuario", "Artista", "Titulo", "Descrição", "Vendedor", "Preco"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false, false, true
+                true, true, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -165,13 +166,13 @@ public class Inicio extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(31, 215, 0, 0);
         incio.add(Sair, gridBagConstraints);
 
-        excluirPedido.setBackground(new java.awt.Color(231, 190, 113));
-        excluirPedido.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        excluirPedido.setForeground(new java.awt.Color(83, 31, 9));
-        excluirPedido.setText("Excluir Pedido");
-        excluirPedido.addActionListener(new java.awt.event.ActionListener() {
+        excluirObra.setBackground(new java.awt.Color(231, 190, 113));
+        excluirObra.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        excluirObra.setForeground(new java.awt.Color(83, 31, 9));
+        excluirObra.setText("Excluir Pedido");
+        excluirObra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                excluirPedidoActionPerformed(evt);
+                excluirObraActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -181,12 +182,12 @@ public class Inicio extends javax.swing.JFrame {
         gridBagConstraints.ipady = 31;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(31, 319, 32, 0);
-        incio.add(excluirPedido, gridBagConstraints);
+        incio.add(excluirObra, gridBagConstraints);
 
         editarPedido.setBackground(new java.awt.Color(218, 146, 66));
         editarPedido.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         editarPedido.setForeground(new java.awt.Color(83, 31, 9));
-        editarPedido.setText("Editar pedido");
+        editarPedido.setText("Editar Obra");
         editarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editarPedidoActionPerformed(evt);
@@ -205,7 +206,7 @@ public class Inicio extends javax.swing.JFrame {
         criarPedido.setBackground(new java.awt.Color(231, 190, 113));
         criarPedido.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         criarPedido.setForeground(new java.awt.Color(83, 31, 9));
-        criarPedido.setText("Criar pedido");
+        criarPedido.setText("Criar Obra");
         criarPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 criarPedidoActionPerformed(evt);
@@ -254,10 +255,23 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_SairActionPerformed
 
     private void tabelaObrasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaObrasMouseClicked
+    if (evt.getClickCount() == 2) { 
+        int selectedRow = tabelaObras.getSelectedRow();
+        
+        if (selectedRow != -1) {
+            
+            int obraId = (int) tabelaObras.getValueAt(selectedRow, 0);
+            EditarObra editar = new EditarObra();
+            editar.mostrarObraEdicao(obraId); 
+            
+            editar.setVisible(true);
+            this.dispose(); // Fecha a tela atual
+        }
+    }
 
     }//GEN-LAST:event_tabelaObrasMouseClicked
 
-    private void excluirPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirPedidoActionPerformed
+    private void excluirObraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirObraActionPerformed
        
         int selectedRow = tabelaObras.getSelectedRow(); 
         if (selectedRow == -1) {
@@ -275,7 +289,8 @@ public class Inicio extends javax.swing.JFrame {
             preencherTabela();              
         }
         
-    }//GEN-LAST:event_excluirPedidoActionPerformed
+        
+    }//GEN-LAST:event_excluirObraActionPerformed
 
     private void editarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarPedidoActionPerformed
         int selectedRow = tabelaObras.getSelectedRow();
@@ -298,6 +313,7 @@ public class Inicio extends javax.swing.JFrame {
         
         EditarObra f = new EditarObra();
         f.setVisible(true);
+        this.setVisible(false);
        
         
     }//GEN-LAST:event_criarPedidoActionPerformed
@@ -341,7 +357,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JButton Sair;
     private javax.swing.JButton criarPedido;
     private javax.swing.JButton editarPedido;
-    private javax.swing.JButton excluirPedido;
+    private javax.swing.JButton excluirObra;
     private javax.swing.JPanel incio;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;

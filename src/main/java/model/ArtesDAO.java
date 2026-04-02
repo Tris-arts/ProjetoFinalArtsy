@@ -20,38 +20,29 @@ public class ArtesDAO {
 
     private int idobras;
     
-    public void inserir(ArtesBean obras){
-        try {
-            Connection conn = Conexao.conectar();
-            PreparedStatement stmt = null;
-           
-            stmt = conn.prepareStatement(
-                    "INSERT INTO obras ( idusuario, artista, titulo, vendedor, descricao, preco) VALUES (?,?,?,?,?,?)"
-            );
-            //idobras, idusuario, 
-            //stmt.setInt(1, obras.getIdobra());
-            stmt.setInt(2, obras.getIdUsuario());
-            stmt.setString(3, obras.getArtista());
-            stmt.setString(4, obras.getTitulo());
-            stmt.setString(5, obras.getVendedor());
-            stmt.setString(6, obras.getDescricao());
-            stmt.setDouble(7, obras.getPreco());
-            
-            
-             
-            
-            stmt.executeUpdate();
-            
-            
-            
+    public void inserir(ArtesBean obras) {
+    try {
+        Connection conn = Conexao.conectar();
+        // REMOVIDO: idobras da lista de campos e o primeiro '?' do VALUES
+        String sql = "INSERT INTO obras (idusuario, artista, titulo, vendedor, descricao, preco) VALUES (?,?,?,?,?,?)";
+        
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        
+        // A contagem agora começa do 1 para o idusuario
+        stmt.setInt(1, obras.getIdUsuario());
+        stmt.setString(2, obras.getArtista());
+        stmt.setString(3, obras.getTitulo());
+        stmt.setString(4, obras.getVendedor());
+        stmt.setString(5, obras.getDescricao());
+        stmt.setDouble(6, obras.getPreco());
+        
+        stmt.executeUpdate();
         stmt.close();
         conn.close();
-        }catch(SQLException e){
-            e.printStackTrace();
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
-       
-       
-        }
+    }   
       
     public void atualizar(ArtesBean obras){
         try {

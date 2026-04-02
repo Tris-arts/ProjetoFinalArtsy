@@ -4,7 +4,7 @@
  */
 package model;
 
-//config para tabela mostrar pedidos apenas do proprio user
+// mostrar pedidos apenas do proprio user
 
 public class Sessao {
     //private static int id;
